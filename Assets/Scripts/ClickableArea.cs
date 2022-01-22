@@ -7,17 +7,14 @@ namespace TutorialSample
 {
     public class ClickableArea : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
-
+        private readonly List<RaycastResult> _raycastResults = new List<RaycastResult>();
         public readonly ClickedEvent OnClick = new ClickedEvent();
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            List<RaycastResult> raycastResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, raycastResults);
+            EventSystem.current.RaycastAll(eventData, _raycastResults);
 
-            Debug.Log(raycastResults);
-
-            foreach (var raycastResult in raycastResults)
+            foreach (var raycastResult in _raycastResults)
             {
                 // ルートが同じなら無視
                 if (raycastResult.gameObject.transform.root == transform.root)
@@ -31,10 +28,9 @@ namespace TutorialSample
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            List<RaycastResult> raycastResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, raycastResults);
+            EventSystem.current.RaycastAll(eventData, _raycastResults);
 
-            foreach (var raycastResult in raycastResults)
+            foreach (var raycastResult in _raycastResults)
             {
                 // ルートが同じなら無視
                 if (raycastResult.gameObject.transform.root == transform.root)
@@ -50,10 +46,9 @@ namespace TutorialSample
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            List<RaycastResult> raycastResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, raycastResults);
+            EventSystem.current.RaycastAll(eventData, _raycastResults);
 
-            foreach (var raycastResult in raycastResults)
+            foreach (var raycastResult in _raycastResults)
             {
                 // ルートが同じなら無視
                 if (raycastResult.gameObject.transform.root == transform.root)
